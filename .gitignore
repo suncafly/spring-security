@@ -1,5 +1,12 @@
-suncafly-security-demo/.idea/
 ytx-security/.idea/
-ytx-security/ytx-security.iml
+ytx-security/*/*.iml
 ytx-security/*/target/
-suncafly-security-demo/security-web-demo/target/
+
+suncafly-security-demo/.idea/
+suncafly-security-demo/*/target/
+suncafly-security-demo/*/*.iml
+
+.idea/*.xml
+.idea/*.iml
+.idea/*/*.iml
+.idea/*/*.xml
