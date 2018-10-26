@@ -10,3 +10,4 @@ suncafly-security-demo/*/*.iml
 .idea/*.iml
 .idea/*/*.iml
 .idea/*/*.xml
+*.iml
