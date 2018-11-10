@@ -17,7 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 
 /**
- * 图形验证码
+ * 图形验证码测试DEMO
  *
  * @author LiFang
  * @date 2018-10-24 10:00 PM
@@ -52,6 +52,7 @@ public class KaptchaController {
         // return a jpeg
         response.setContentType("image/jpeg");
         // create the text for the image
+
         String capText = kaptchaProducer.createText();
         // store the text in the session
         session.setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);

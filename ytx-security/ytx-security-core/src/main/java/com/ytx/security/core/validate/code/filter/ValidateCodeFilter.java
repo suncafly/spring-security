@@ -35,18 +35,15 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     /**
      * 验证码校验失败处理器
      */
-    @Autowired
-    private AuthenticationFailureHandler authenticationFailureHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
     /**
      * 系统配置信息
      */
-    @Autowired
-    private SecurityProperties securityProperties;
+    private final SecurityProperties securityProperties;
     /**
      * 系统中的校验码处理器
      */
-    @Autowired
-    private ValidateCodeProcessorHolder validateCodeProcessorHolder;
+    private final ValidateCodeProcessorHolder validateCodeProcessorHolder;
     /**
      * 存放所有需要校验验证码的url
      */
@@ -56,6 +53,14 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
      */
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
+    @Autowired
+    public ValidateCodeFilter(AuthenticationFailureHandler authenticationFailureHandler, SecurityProperties securityProperties,
+                              ValidateCodeProcessorHolder validateCodeProcessorHolder) {
+        this.authenticationFailureHandler = authenticationFailureHandler;
+        this.securityProperties = securityProperties;
+        this.validateCodeProcessorHolder = validateCodeProcessorHolder;
+    }
+
     /**
      * 初始化要拦截的url配置信息
      */
@@ -63,8 +68,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     public void afterPropertiesSet() throws ServletException {
         super.afterPropertiesSet();
         urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, ValidateCodeType.IMAGE);
-//        addUrlToMap(securityProperties.getCode().getImage().getUrl(), ValidateCodeType.IMAGE);
-//
+        addUrlToMap(securityProperties.getCode().getImage().getUrl(), ValidateCodeType.IMAGE);
 //        urlMap.put(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE, ValidateCodeType.SMS);
 //        addUrlToMap(securityProperties.getCode().getSms().getUrl(), ValidateCodeType.SMS);
     }
@@ -84,18 +88,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
         }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.springframework.web.filter.OncePerRequestFilter#doFilterInternal(
-     * javax.servlet.http.HttpServletRequest,
-     * javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
-     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-
         ValidateCodeType type = getValidateCodeType(request);
         if (type != null) {
             logger.info("校验请求(" + request.getRequestURI() + ")中的验证码,验证码类型" + type);

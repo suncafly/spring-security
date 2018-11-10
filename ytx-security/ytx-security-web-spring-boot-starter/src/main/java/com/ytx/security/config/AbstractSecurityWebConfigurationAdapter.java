@@ -37,17 +37,23 @@ public abstract class AbstractSecurityWebConfigurationAdapter extends WebSecurit
         http
                 .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin()
-                .loginPage("/authentication/require")
-                .loginProcessingUrl("/authentication/form")
+                .loginPage(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
+                .loginProcessingUrl(SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM)
                 .successHandler(ytxAuthenticationSuccessHandler)
                 .failureHandler(ytxAuthenticationFailureHandler)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/authentication/require", "/authentication/form", "/kaptcha/get",
+                .antMatchers(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL, SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_FORM, "/kaptcha/get",
                         SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*",
                         securityProperties.getWeb().getLoginPage()).permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().csrf().disable();
     }
+
+    public SecurityProperties getSecurityProperties() {
+        return securityProperties;
+    }
+
+
 }
