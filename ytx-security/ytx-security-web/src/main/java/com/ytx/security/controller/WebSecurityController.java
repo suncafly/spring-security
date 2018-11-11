@@ -1,5 +1,6 @@
 package com.ytx.security.controller;
 
+import com.ytx.security.core.constant.SecurityConstants;
 import com.ytx.security.core.properites.SecurityProperties;
 import com.ytx.security.support.SimpleResponse;
 import org.slf4j.Logger;
@@ -55,7 +56,7 @@ public class WebSecurityController {
      * @return
      * @throws IOException
      */
-    @RequestMapping("authentication/require")
+    @RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
     public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
