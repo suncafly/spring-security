@@ -72,14 +72,21 @@ public class SecurityProperties {
 
         private final SecurityProperties.ValidateCodeProperties.ImageCodeProperties image = new SecurityProperties.ValidateCodeProperties.ImageCodeProperties();
 
+        private final SecurityProperties.ValidateCodeProperties.SmsCodeProperties sms = new SecurityProperties.ValidateCodeProperties.SmsCodeProperties();
+
         public ImageCodeProperties getImage() {
             return image;
         }
 
+        public SmsCodeProperties getSms() {
+            return sms;
+        }
+
         /**
-         * 图片验证码
+         * image validate
          */
         public static class ImageCodeProperties {
+
             private int expireIn = 60;
             private String url;
             private String border;
@@ -198,6 +205,37 @@ public class SecurityProperties {
             public void setExpireIn(int expireIn) {
                 this.expireIn = expireIn;
             }
+        }
+
+        /**
+         * sms validate
+         */
+        public static class SmsCodeProperties {
+
+            private int length = 6;
+            private int expireIn = 60;
+
+            private String url;
+
+            public int getLength() {
+                return length;
+            }
+            public void setLength(int lenght) {
+                this.length = lenght;
+            }
+            public int getExpireIn() {
+                return expireIn;
+            }
+            public void setExpireIn(int expireIn) {
+                this.expireIn = expireIn;
+            }
+            public String getUrl() {
+                return url;
+            }
+            public void setUrl(String url) {
+                this.url = url;
+            }
+
         }
     }
 }

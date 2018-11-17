@@ -73,14 +73,14 @@ public class WebSecurityController {
         return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页");
     }
 
-    @GetMapping("/me")
-    public Object getCurrentUser(Authentication authentication) {
-//        return SecurityContextHolder.getContext().getAuthentication();
-        return authentication;
-    }
-
-    @GetMapping("/self")
-    public UserDetails getPrincipal(@AuthenticationPrincipal UserDetails userDetails){
-        return userDetails;
-    }
+//    @GetMapping("/me")
+//    public Object getCurrentUser(Authentication authentication) {
+////        return SecurityContextHolder.getContext().getAuthentication();
+//        return authentication;
+//    }
+//
+//    @GetMapping("/self")
+//    public UserDetails getPrincipal(@AuthenticationPrincipal UserDetails userDetails){
+//        return userDetails;
+//    }
 }

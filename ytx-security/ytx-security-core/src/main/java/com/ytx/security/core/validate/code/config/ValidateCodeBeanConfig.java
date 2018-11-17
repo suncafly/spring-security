@@ -7,6 +7,8 @@ import com.google.code.kaptcha.util.Config;
 import com.ytx.security.core.properites.SecurityProperties;
 import com.ytx.security.core.validate.code.ValidateCodeGenerator;
 import com.ytx.security.core.validate.code.image.ImageCodeGenerator;
+import com.ytx.security.core.validate.code.sms.DefaultSmsCodeSender;
+import com.ytx.security.core.validate.code.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -49,6 +51,11 @@ public class ValidateCodeBeanConfig {
         return defaultKaptcha;
     }
 
+    @Bean
+    @ConditionalOnMissingBean(SmsCodeSender.class)
+    public SmsCodeSender smsCodeSender() {
+        return new DefaultSmsCodeSender();
+    }
 
     private Config initKaptchaConfig() {
         Properties properties = new Properties();
